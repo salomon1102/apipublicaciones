@@ -11,7 +11,7 @@ class Publicacion(models.Model):
     fecha = models.DateTimeField(default=datetime.datetime.now(),null=True)
 
     comentarios = models.ManyToManyField(Comentario, related_name='publicaciones')
-    tag = models.ManyToManyField(Tag, related_name='publicaciones')
+    tag = models.ManyToManyField(Tag, related_name='publicaciones_tag')
 
     def __str__(self):
         return self.usuario

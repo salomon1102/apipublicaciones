@@ -24,11 +24,11 @@ class ComentarioViewSet(viewsets.ModelViewSet):
    permission_classes = (AllowAny, )
 
    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
-   def publicaciones (self, request, pk=None):
+   def tags (self, request, pk=None):
       comentario= self.get_object()
 
       if request.method == 'GET':
-         serializer =  PublicacionSerializer(comentario.tag, many=True)
+         serializer =  PublicacionSerializer(comentario.publicaciones, many=True)
          return Response(status=status.HTTP_200_OK, data=serializer.data)
 
    @action(methods=['GET', 'POST', 'DELETE'], detail=True)

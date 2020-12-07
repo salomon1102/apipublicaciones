@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from tags.models import Tag
 from publicaciones.models import  Publicacion
 from publicaciones.serializers import PublicacionSerializer
 from comentarios.serializers import ComentarioSerializer
@@ -26,6 +27,28 @@ class PublicacionViewSet(viewsets.ModelViewSet):
       if request.method == 'GET':
          serializer = TagSerializer(publicacion.tag, many=True)
          return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+      if request.method == 'POST':
+         tag_id = request.data['tags_ids']
+
+         for id_ta in tag_id:
+            tag_encontrado = Tag.objects.get(id=id_ta)
+            publicacion.tag.add(tag_encontrado)
+
+         serializer = TagSerializer(publicacion.tag, many=True)
+         return Response(status=status.HTTP_201_CREATED, data=serializer.data)
+
+      if request.method == 'DELETE':
+         tag_id = request.data['tags_ids']
+
+         for id_ta in tag_id:
+            tag_encontrado = Tag.objects.get(id=id_ta)
+            publicacion.tag.remove(tag_encontrado)
+
+         serializer = TagSerializer(publicacion.tag, many=True)
+         return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.data)
+
+       ###################
 
    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
    def comentarios(self, request, pk=None):
