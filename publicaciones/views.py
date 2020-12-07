@@ -44,7 +44,7 @@ class PublicacionViewSet(viewsets.ModelViewSet):
 
          serializer = ComentarioSerializer(publicacion.comentarios, many=True)
          return Response(status=status.HTTP_200_OK, data=serializer.data)
-   
+
       if request.method == 'DELETE':
          comet_id = request.data['comentarios_ids']
 

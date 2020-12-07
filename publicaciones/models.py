@@ -10,8 +10,8 @@ class Publicacion(models.Model):
     publicacion = models.CharField(max_length=200)
     fecha = models.DateTimeField(default=datetime.datetime.now(),null=True)
 
-    comentarios = models.ManyToManyField(Comentario, related_name='coment')
-    tag = models.ManyToManyField(Tag, related_name='tag')
+    comentarios = models.ManyToManyField(Comentario, related_name='publicaciones')
+    tag = models.ManyToManyField(Tag, related_name='publicaciones')
 
     def __str__(self):
         return self.usuario
